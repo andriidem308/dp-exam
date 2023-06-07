@@ -8,6 +8,9 @@ public class Client {
         gameScene.addMonster(MonsterType.DEMON);
         gameScene.addMonster(MonsterType.DEMON);
         gameScene.addMonster(MonsterType.ZOMBIE);
+        gameScene.addMonster(MonsterType.CACODEMON);
+        gameScene.addMonster(MonsterType.CYBERDEMON);
+        gameScene.addMonster(MonsterType.CACODEMON);
 
         gameScene.start();
     }
