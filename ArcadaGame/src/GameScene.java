@@ -7,8 +7,7 @@ import java.util.List;
 public class GameScene {
 
     public final String level;  // Складність гри
-
-    private final List<Shooter> shooters = new ArrayList<>();
+    private final List<ShooterFactory> shooterFactories = new ArrayList<>();
 
     public GameScene(String level) {
         this.level = level;
@@ -19,15 +18,37 @@ public class GameScene {
      * @param type - тип монстра
      */
     public void addMonster(MonsterType type) {
-        Shooter shooter = MonsterFactory.createMonster(type, level);
-        shooters.add(shooter);
+        ShooterFactory factory;
+
+        switch (type) {
+            case ZOMBIE:
+                factory = new ZombieFactory();
+                break;
+            case IMP:
+                factory = new ImpFactory();
+                break;
+            case DEMON:
+                factory = new DemonFactory();
+                break;
+            case CACODEMON:
+                factory = new CacoDemonFactory();
+                break;
+            case CYBERDEMON:
+                factory = new CyberDemonFactory();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected type: " + type);
+        }
+
+        shooterFactories.add(factory);
     }
 
     /**
      * Запустити рівень
      */
     public void start() {
-        for (Shooter shooter : shooters) {
+        for (ShooterFactory factory : shooterFactories) {
+            Shooter shooter = factory.createMonster(level);
             shooter.shoot();
         }
     }
